@@ -1,0 +1,79 @@
+name: Generate shadowrocket rules
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "00 00 * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  process-files:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Generate icloud.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/icloud.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > icloud.txt
+
+      - name: Generate apple.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf | sed 's/^server=\/\(.*\)\/114\.114\.114\.114$/DOMAIN-SUFFIX,\1/' > apple.txt
+
+      - name: Generate tld-not-cn.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > tld-not-cn.txt
+
+      - name: Generate private.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/private.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > private.txt
+
+      - name: Generate reject.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > reject.txt
+
+      - name: Generate proxyt.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > proxyt.txt
+
+      - name: Generate direct.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > direct.txt
+
+      - name: Generate gfw.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/gfw.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > gfw.txt
+
+      - name: Generate cncidr.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/cn.txt | sed 's/^/IP-CIDR,/' > cncidr.txt
+
+      - name: Generate lancidr.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/private.txt | sed 's/^/IP-CIDR,/' > lancidr.txt
+
+      - name: Generate telegramcidr.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt | sed 's/^/IP-CIDR,/' > telegramcidr.txt
+
+      - name: Move files to rules directory
+        run: |
+          mkdir -p rules
+          cp *.txt ./rules/
+      
+      - name: Configure variable names
+        run: |
+          echo "RELEASE_NAME=Built on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./rules/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
