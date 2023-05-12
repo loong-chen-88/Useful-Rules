@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_rules_list:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Tiktok.txt file
@@ -26,7 +26,7 @@ jobs:
       
       - name: Generate tld-not-cn.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/./' > tld-not-cn.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/DOMAIN-SET,./' > tld-not-cn.list
       
       - name: Generate private.txt file
         run: |
@@ -62,30 +62,206 @@ jobs:
       
       - name: Move files to rules directory
         run: |
-          mkdir -p rules
-          cp *.list ./rules/
+          mkdir -p rules.d
+          cp *.list ./rules.d/
       
-      - name: Upload artifact
+      - name: Upload rule list artifact
         uses: actions/upload-artifact@v3
         with:
           name: rules
-          path: ./rules/
+          path: ./rules.d/
+
+  build_whitelist_mode_conf_file:
+    runs-on: ubuntu-latest
+    needs: build_rules_list
+    steps:     
+      - name: Get common configuration files
+        run: |
+          mkdir -p {rules,rules.d,conf.d}
+          curl -sSL https://raw.githubusercontent.com/L00N9CHEN/Useful-Rules/Custom/General.txt
+          cp General.txt ./conf.d
+          
+      - name: Download rule list artifact 
+        uses: actions/download-artifact@v3
+        with:
+          name: rules
+          path: ./rules
+          
+      - name: Modify rule list files
+        run: |
+          sed -i 's/$/,PROXY/' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' ./rules.d/TikTok.list
+          cp ./rules/TikTok.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/icloud.list
+          sed -i '1i# iCloud 域名' ./rules.d/icloud.list
+          cp ./rules/icloud.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/apple.list
+          sed -i '1i# Apple 在中国大陆可直连的域名' ./rules.d/apple.list
+          cp ./rules/apple.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/private.list
+          sed -i '1i# 私有网络专用域名' ./rules.d/private.list
+          cp ./rules/private.list ./rules.d
+
+          sed -i 's/$/,REJECT/' ./rules.d/reject.list
+          sed -i '1i# 广告域名' ./rules.d/reject.list
+          cp ./rules/reject.list ./rules.d
+
+          sed -i 's/$/,PROXY/' ./rules.d/proxy.list
+          sed -i '1i# # 代理域名' ./rules.d/proxy.list
+          cp ./rules/proxy.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/direct.list
+          sed -i '1i# 直连域名列表' ./rules.d/direct.list
+          cp ./rules/direct.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/cncidr.list
+          sed -i '1i# 中国大陆 IP 地址' ./rules.d/cncidr.list
+          cp ./rules/cncidr.list ./rules.d
+
+          sed -i 's/$/,DIRECT/' ./rules.d/lancidr.list
+          sed -i '1i# 局域网及预留 IP 地址' ./rules.d/lancidr.list
+          cp ./rules/lancidr.list ./rules.d
+
+          sed -i 's/$/,PROXY/' ./rules.d/telegramcidr.list
+          sed -i '1i# Telegram 使用的 IP 地址' ./rules.d/telegramcidr.list
+          cp ./rules/telegramcidr.list ./rules.d
+          
+      - name: Concatenate rule configuration files
+        run: |
+          cat ./rules.d/*.list > ./conf.d/rules.txt
+          echo -e "GEOIP,CN,DIRECT\nFINAL,PROXY" >> ./conf.d/rules.txt
+
+      - name: Generate URL rewrite configuration file
+        run: | 
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[URL Rewrite\]/,$p' > URL_Rewrite.txt
+          sed -i '/\[MITM\]/,$d' URL_Rewrite.txt
+          sed -i '/\[URL Rewrite\]/a\^https?://(www.)?g.cn https://www.google.com 302\n^https?://(www.)?google.cn https://www.google.com 302' URL_Rewrite.txt
+          cp URL_Rewrite.txt ./conf.d
+
+      - name: Generate HTTPS decrypted configuration file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[MITM\]/,$p' > MITM.txt
+          sed -i 's/hostname = /hostname = *snssdk.com,*amemv.com,*instagram.com,/' MITM.txt
+          cp MITM.txt ./conf.d
+
+      - name: Concatenate All configuration file
+        run: |
+          cat ./conf.d/*.txt > ./conf.d/WhitelistMode.conf
+          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/WhitelistMode.conf
+
+
+      - name: Upload whitelist mode artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: whitelist
+          path: ./conf.d/WhitelistMode.conf
+
+  build_blacklist_mode_conf_file:
+    runs-on: ubuntu-latest
+    needs: build_rules_list
+    steps:     
+      - name: Get common configuration files
+        run: |
+          mkdir -p {rules,rules.d,conf.d}
+          curl -sSL https://raw.githubusercontent.com/L00N9CHEN/Useful-Rules/Custom/General.txt
+          cp General.txt ./conf.d
+
+      - name: Download rule list artifact 
+        uses: actions/download-artifact@v3
+        with:
+          name: rules
+          path: ./rules
+          
+      - name: Modify rule list files
+        run: |
+          sed -i 's/$/,PROXY/' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
+          cp ./rules/TikTok.list ./rules.d/
+
+          sed -i 's/$/,PROXY/' ./rules/tld-not-cn.list
+          sed -i '1i# 非中国大陆使用的顶级域名' ./rules/tld-not-cn.list
+          cp ./rules/tld-not-cn.list ./rules.d/
+
+          sed -i 's/$/,DIRECT/' ./rules/private.list
+          sed -i '1i# 私有网络专用域名' ./rules/private.list
+          cp ./rules/private.list ./rules.d/
+
+          sed -i 's/$/,REJECT/' ./rules/reject.list
+          sed -i '1i# 广告域名' ./rules/reject.list
+          cp ./rules/reject.list ./rules.d/
+
+          sed -i 's/$/,PROXY/' ./rules/proxy.list
+          sed -i '1i# # 代理域名' ./rules/proxy.list
+          cp ./rules/proxy.list ./rules.d/
+
+          sed -i 's/$/,PROXY/' ./rules/gfw.list
+          sed -i '1i# GFWList 域名' ./rules.d/gfw.list
+          cp ./rules/gfw.list ./rules.d/
+
+          sed -i 's/$/,PROXY/' ./rules/telegramcidr.list
+          sed -i '1i# Telegram 使用的 IP 地址' ./rules/telegramcidr.list
+          cp ./rules/telegramcidr.list ./rules.d/
+     
+      - name: Concatenate rule configuration files
+        run: |
+          cat ./rules.d/*.list > ./conf.d/rules.txt
+          echo -e "GEOIP,CN,DIRECT\nFINAL,DIRECT" >> ./conf.d/rules.txt
+
+      - name: Generate URL rewrite configuration file
+        run: | 
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[URL Rewrite\]/,$p' > URL_Rewrite.txt
+          sed -i '/\[MITM\]/,$d' URL_Rewrite.txt
+          sed -i '/\[URL Rewrite\]/a\^https?://(www.)?g.cn https://www.google.com 302\n^https?://(www.)?google.cn https://www.google.com 302' URL_Rewrite.txt
+          cp URL_Rewrite.txt ./conf.d/
+
+      - name: Generate HTTPS decrypted configuration file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[MITM\]/,$p' > MITM.txt
+          sed -i 's/hostname = /hostname = *snssdk.com,*amemv.com,*instagram.com,/' MITM.txt
+          cp MITM.txt ./conf.d/
+
+      - name: Concatenate All configuration file
+        run: |
+          cat ./conf.d/*.txt > ./conf.d/BacklistMode.conf
+          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/BacklistMode.conf
+
+
+      - name: Upload black mode artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: blacklist
+          path: ./conf.d/BlacklistMode.conf
 
   publish:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build_rules_list,build_whitelist_mode_conf_file,build_blacklist_mode_conf_file]
     steps:     
       - name: Configure variable names
         run: |
           echo "RELEASE_NAME=Built on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          mkdir -p rules
+          mkdir -p files
 
-      - name: Download artifact 
+      - name: Download rule list artifact
         uses: actions/download-artifact@v3
         with:
           name: rules
-          path: ./rules
+          path: ./files
+
+      - name: Download whitelist mode artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: whitelist
+          path: ./files
+
+      - name: Download black mode artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: blacklist
+          path: ./files
 
       - name: Publish and upload artifacts
         uses: softprops/action-gh-release@v0.1.15
@@ -95,7 +271,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ./rules/*
+            ./files/*
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
