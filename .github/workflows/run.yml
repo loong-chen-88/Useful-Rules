@@ -155,7 +155,7 @@ jobs:
       - name: Upload whitelist mode artifact
         uses: actions/upload-artifact@v3
         with:
-          name: whitelist
+          name: bai
           path: ./conf.d/WhitelistMode.conf
    
 
@@ -231,7 +231,7 @@ jobs:
       - name: Upload backlist mode artifact
         uses: actions/upload-artifact@v3
         with:
-          name: backlist
+          name: hei
           path: ./conf.d/BlacklistMode.conf
 
   publish:
@@ -258,13 +258,13 @@ jobs:
       - name: Download whitelist mode artifact
         uses: actions/download-artifact@v3
         with:
-          name: whitelist
+          name: bai
           path: ./files
 
       - name: Download blacklist mode artifact
         uses: actions/download-artifact@v3
         with:
-          name: blacklist
+          name: hei
           path: ./files
 
       - name: Publish and upload artifacts
