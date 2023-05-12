@@ -227,11 +227,11 @@ jobs:
           cat ./conf.d/*.txt > ./conf.d/BacklistMode.conf
           sed -i "1s/^/# Built on $(date)\n/" ./conf.d/BacklistMode.conf
 
-      - name: Upload black mode artifact
+      - name: Upload blacklist mode artifact
         uses: actions/upload-artifact@v3
         with:
           name: blacklist
-          path: ./conf.d/BlacklistMode.conf
+          path: ./conf.d/WhitelistMode.conf
 
   publish:
     runs-on: ubuntu-latest
@@ -260,7 +260,7 @@ jobs:
           name: whitelist
           path: ./files
 
-      - name: Download black mode artifact
+      - name: Download blacklist mode artifact
         uses: actions/download-artifact@v3
         with:
           name: blacklist
