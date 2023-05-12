@@ -11,7 +11,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:      
+    steps:
+      - name: Generate Tiktok.txt file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TikTok.list | sed '1,2 d' > TikTok.txt
+          
       - name: Generate icloud.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/icloud.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > icloud.txt
@@ -22,7 +26,7 @@ jobs:
       
       - name: Generate tld-not-cn.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,./' > tld-not-cn.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/./' > tld-not-cn.txt
       
       - name: Generate private.txt file
         run: |
