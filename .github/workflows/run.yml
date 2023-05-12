@@ -14,56 +14,56 @@ jobs:
     steps:
       - name: Generate Tiktok.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TikTok.list | sed '1,2 d' > TikTok.txt
+          curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TikTok.list | sed '1,2 d' > TikTok.list
           
       - name: Generate icloud.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/icloud.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > icloud.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/icloud.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > icloud.list
       
       - name: Generate apple.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf | sed 's/^server=\/\(.*\)\/114\.114\.114\.114$/DOMAIN-SUFFIX,\1/' > apple.txt
+          curl -sSL https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf | sed 's/^server=\/\(.*\)\/114\.114\.114\.114$/DOMAIN-SUFFIX,\1/' > apple.list
       
       - name: Generate tld-not-cn.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/./' > tld-not-cn.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/./' > tld-not-cn.list
       
       - name: Generate private.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/private.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > private.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/private.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > private.list
       
       - name: Generate reject.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > reject.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > reject.list
       
       - name: Generate proxyt.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > proxyt.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > proxyt.list
       
       - name: Generate direct.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > direct.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > direct.list
       
       - name: Generate gfw.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/gfw.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > gfw.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/gfw.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > gfw.list
       
       - name: Generate cncidr.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/cn.txt | sed 's/^/IP-CIDR,/' > cncidr.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/cn.txt | sed 's/^/IP-CIDR,/' > cncidr.list
       
       - name: Generate lancidr.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/private.txt | sed 's/^/IP-CIDR,/' > lancidr.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/private.txt | sed 's/^/IP-CIDR,/' > lancidr.list
       
       - name: Generate telegramcidr.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt | sed 's/^/IP-CIDR,/' > telegramcidr.txt
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt | sed 's/^/IP-CIDR,/' > telegramcidr.list
       
       - name: Move files to rules directory
         run: |
           mkdir -p rules
-          cp *.txt ./rules/
+          cp *.list ./rules/
       
       - name: Upload artifact
         uses: actions/upload-artifact@v3
