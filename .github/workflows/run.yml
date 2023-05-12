@@ -157,6 +157,7 @@ jobs:
         with:
           name: whitelist
           path: ./conf.d/WhitelistMode.conf
+   
 
   build_blacklist_mode_conf_file:
     runs-on: ubuntu-latest
@@ -224,14 +225,14 @@ jobs:
 
       - name: Concatenate All configuration file
         run: |
-          cat ./conf.d/*.txt > ./conf.d/BacklistMode.conf
-          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/BacklistMode.conf
+          cat ./conf.d/*.txt > ./conf.d/BlacklistMode.conf
+          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/BlacklistMode.conf
 
-      - name: Upload blacklist mode artifact
+      - name: Upload backlist mode artifact
         uses: actions/upload-artifact@v3
         with:
-          name: blacklist
-          path: ./conf.d/WhitelistMode.conf
+          name: backlist
+          path: ./conf.d/BlacklistMode.conf
 
   publish:
     runs-on: ubuntu-latest
