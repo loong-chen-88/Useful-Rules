@@ -110,10 +110,10 @@ jobs:
           cp ./rules/reject.list ./rules.d
 
           sed -i 's/$/,PROXY/' ./rules/proxy.list
-          sed -i '1i# # 代理域名' ./rules.d/proxy.list
+          sed -i '1i# # 代理域名' ./rules/proxy.list
           cp ./rules/proxy.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/direct.list
+          sed -i 's/$/,DIRECT/' ./rules/direct.list
           sed -i '1i# 直连域名列表' ./rules/direct.list
           cp ./rules/direct.list ./rules.d
 
