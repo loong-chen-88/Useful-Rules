@@ -133,6 +133,7 @@ jobs:
         run: |
           cat ./rules.d/*.list > ./conf.d/rules.txt
           echo -e "GEOIP,CN,DIRECT\nFINAL,PROXY" >> ./conf.d/rules.txt
+          sed -i '1s/^/[RULE]\n/' ./conf.d/rules.txt
 
       - name: Generate URL rewrite configuration file
         run: |
@@ -155,7 +156,7 @@ jobs:
       - name: Upload whitelist mode artifact
         uses: actions/upload-artifact@v3
         with:
-          name: bai
+          name: rules
           path: ./conf.d/WhitelistMode.conf
    
 
@@ -209,6 +210,7 @@ jobs:
         run: |
           cat ./rules.d/*.list > ./conf.d/rules.txt
           echo -e "GEOIP,CN,DIRECT\nFINAL,DIRECT" >> ./conf.d/rules.txt
+          sed -i '1s/^/[RULE]\n/' ./conf.d/rules.txt
 
       - name: Generate URL rewrite configuration file
         run: |
@@ -231,7 +233,7 @@ jobs:
       - name: Upload backlist mode artifact
         uses: actions/upload-artifact@v3
         with:
-          name: hei
+          name: rules
           path: ./conf.d/BlacklistMode.conf
 
   publish:
@@ -247,6 +249,7 @@ jobs:
       - name: Download artifact 
         uses: actions/download-artifact@v3
         with:
+          name: rules
           path: ./rules
 
       - name: Publish and upload artifacts
