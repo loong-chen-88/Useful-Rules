@@ -42,7 +42,7 @@ jobs:
       
       - name: Generate direct.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | 's/^/DOMAIN-SUFFIX,/' > direct.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | sed 's/^/DOMAIN-SUFFIX,/' > direct.list
       
       - name: Generate gfw.txt file
         run: |
