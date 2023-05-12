@@ -234,14 +234,9 @@ jobs:
           name: hei
           path: ./conf.d/BlacklistMode.conf
 
-  publish:
+  publish_rules:
     runs-on: ubuntu-latest
-    needs:
-      [
-        build_rules_list,
-        build_whitelist_mode_conf_file,
-        build_blacklist_mode_conf_file,
-      ]
+    needs: build_rules_list
     steps:
       - name: Configure variable names
         run: |
@@ -255,11 +250,93 @@ jobs:
           name: rules
           path: ./files
 
+      - name: Publish and upload artifacts
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./files/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Upload artifact to "release" branch
+        run: |
+          cd rules || exit 1
+          git init
+          git config --local user.name ${{ secrets.USER_NAME }}
+          git config --local user.email ${{ secrets.USER_EMAIL }}
+          git checkout -b release
+          git add .
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin release
+
+      - name: Purge jsdelivr CDN
+        run: |
+          cd rules || exit 1
+          for file in $(ls); do
+            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
+          done
+
+  publish_whitelist_mode_conf:
+    runs-on: ubuntu-latest
+    needs: build_whitelist_mode_conf_file
+    steps:
+      - name: Configure variable names
+        run: |
+          echo "RELEASE_NAME=Built on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          mkdir -p files
+
       - name: Download whitelist mode artifact
         uses: actions/download-artifact@v3
         with:
           name: bai
           path: ./files
+
+      - name: Publish and upload artifacts
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./files/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Upload artifact to "release" branch
+        run: |
+          cd rules || exit 1
+          git init
+          git config --local user.name ${{ secrets.USER_NAME }}
+          git config --local user.email ${{ secrets.USER_EMAIL }}
+          git checkout -b release
+          git add .
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin release
+
+      - name: Purge jsdelivr CDN
+        run: |
+          cd rules || exit 1
+          for file in $(ls); do
+            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
+          done
+
+  publish_blacklist_mode_conf:
+    runs-on: ubuntu-latest
+    needs: build_blacklist_mode_conf_file
+    steps:
+      - name: Configure variable names
+        run: |
+          echo "RELEASE_NAME=Built on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          mkdir -p files
 
       - name: Download blacklist mode artifact
         uses: actions/download-artifact@v3
