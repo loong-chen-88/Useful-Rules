@@ -49,6 +49,11 @@ jobs:
         run: |
           mkdir -p rules
           cp *.txt ./rules/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rules
+          path: ./rules/
   publish:
     runs-on: ubuntu-latest
     needs: build
@@ -57,7 +62,15 @@ jobs:
         run: |
           echo "RELEASE_NAME=Built on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-      - name: GH Release
+          mkdir -p rules
+
+      - name: Download artifact 
+        uses: actions/download-artifact@v3
+        with:
+          name: rules
+          path: ./rules
+
+      - name: Publish and upload artifacts
         uses: softprops/action-gh-release@v0.1.15
         with:
           name: ${{ env.RELEASE_NAME }}
@@ -68,3 +81,14 @@ jobs:
             ./rules/*
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Upload artifact to "release" branch
+        run: |
+          cd rules || exit 1
+          git init
+          git config --local user.name ${{ secrets.USER_NAME }}
+          git config --local user.email ${{ secrets.USER_EMAIL }}
+          git checkout -b release
+          git add .
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git push -f origin release
