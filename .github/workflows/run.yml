@@ -90,43 +90,43 @@ jobs:
       - name: Modify rule list files
         run: |
           sed -i 's/$/,PROXY/' ./rules/TikTok.list
-          sed -i '1i# 解锁 TikTok' ./rules.d/TikTok.list
+          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
           cp ./rules/TikTok.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/icloud.list
-          sed -i '1i# iCloud 域名' ./rules.d/icloud.list
+          sed -i 's/$/,DIRECT/' ./rules/icloud.list
+          sed -i '1i# iCloud 域名' ./rules/icloud.list
           cp ./rules/icloud.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/apple.list
-          sed -i '1i# Apple 在中国大陆可直连的域名' ./rules.d/apple.list
+          sed -i 's/$/,DIRECT/' ./rules/apple.list
+          sed -i '1i# Apple 在中国大陆可直连的域名' ./rules/apple.list
           cp ./rules/apple.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/private.list
-          sed -i '1i# 私有网络专用域名' ./rules.d/private.list
+          sed -i 's/$/,DIRECT/' ./rules/private.list
+          sed -i '1i# 私有网络专用域名' ./rules/private.list
           cp ./rules/private.list ./rules.d
 
-          sed -i 's/$/,REJECT/' ./rules.d/reject.list
-          sed -i '1i# 广告域名' ./rules.d/reject.list
+          sed -i 's/$/,REJECT/' ./rules/reject.list
+          sed -i '1i# 广告域名' ./rules/reject.list
           cp ./rules/reject.list ./rules.d
 
-          sed -i 's/$/,PROXY/' ./rules.d/proxy.list
+          sed -i 's/$/,PROXY/' ./rules/proxy.list
           sed -i '1i# # 代理域名' ./rules.d/proxy.list
           cp ./rules/proxy.list ./rules.d
 
           sed -i 's/$/,DIRECT/' ./rules.d/direct.list
-          sed -i '1i# 直连域名列表' ./rules.d/direct.list
+          sed -i '1i# 直连域名列表' ./rules/direct.list
           cp ./rules/direct.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/cncidr.list
-          sed -i '1i# 中国大陆 IP 地址' ./rules.d/cncidr.list
+          sed -i 's/$/,DIRECT/' ./rules/cncidr.list
+          sed -i '1i# 中国大陆 IP 地址' ./rules/cncidr.list
           cp ./rules/cncidr.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules.d/lancidr.list
-          sed -i '1i# 局域网及预留 IP 地址' ./rules.d/lancidr.list
+          sed -i 's/$/,DIRECT/' ./rules/lancidr.list
+          sed -i '1i# 局域网及预留 IP 地址' ./rules/lancidr.list
           cp ./rules/lancidr.list ./rules.d
 
-          sed -i 's/$/,PROXY/' ./rules.d/telegramcidr.list
-          sed -i '1i# Telegram 使用的 IP 地址' ./rules.d/telegramcidr.list
+          sed -i 's/$/,PROXY/' ./rules/telegramcidr.list
+          sed -i '1i# Telegram 使用的 IP 地址' ./rules/telegramcidr.list
           cp ./rules/telegramcidr.list ./rules.d
 
       - name: Concatenate rule configuration files
@@ -197,7 +197,7 @@ jobs:
           cp ./rules/proxy.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/gfw.list
-          sed -i '1i# GFWList 域名' ./rules.d/gfw.list
+          sed -i '1i# GFWList 域名' ./rules/gfw.list
           cp ./rules/gfw.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/telegramcidr.list
