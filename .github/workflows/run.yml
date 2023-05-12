@@ -247,7 +247,6 @@ jobs:
       - name: Download artifact 
         uses: actions/download-artifact@v3
         with:
-          name: rules bai hei
           path: ./rules
 
       - name: Publish and upload artifacts
