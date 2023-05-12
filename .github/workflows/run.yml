@@ -79,7 +79,6 @@ jobs:
         run: |
           mkdir -p {rules,rules.d,conf.d}
           curl -sSL https://raw.githubusercontent.com/L00N9CHEN/Useful-Rules/Custom/General.txt
-          cp General.txt ./conf.d
           
       - name: Download rule list artifact 
         uses: actions/download-artifact@v3
@@ -139,16 +138,17 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[URL Rewrite\]/,$p' > URL_Rewrite.txt
           sed -i '/\[MITM\]/,$d' URL_Rewrite.txt
           sed -i '/\[URL Rewrite\]/a\^https?://(www.)?g.cn https://www.google.com 302\n^https?://(www.)?google.cn https://www.google.com 302' URL_Rewrite.txt
-          cp URL_Rewrite.txt ./conf.d
+
 
       - name: Generate HTTPS decrypted configuration file
         run: |
           curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TiKTok-US.conf | sed -n '/\[MITM\]/,$p' > MITM.txt
           sed -i 's/hostname = /hostname = *snssdk.com,*amemv.com,*instagram.com,/' MITM.txt
-          cp MITM.txt ./conf.d
+
 
       - name: Concatenate All configuration file
         run: |
+          cp *.txt ./rules.d/
           cat ./conf.d/*.txt > ./conf.d/WhitelistMode.conf
           sed -i "1s/^/# Built on $(date)\n/" ./conf.d/WhitelistMode.conf
 
