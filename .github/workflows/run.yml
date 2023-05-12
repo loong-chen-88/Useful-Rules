@@ -12,51 +12,51 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Tiktok.list file
+      - name: Generate Tiktok.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Shadowrocket/TikTok.list | sed '1,2 d' > TikTok.list
           
-      - name: Generate icloud.list file
+      - name: Generate icloud.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/icloud.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > icloud.list
       
-      - name: Generate apple.list file
+      - name: Generate apple.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf | sed 's/^server=\/\(.*\)\/114\.114\.114\.114$/DOMAIN-SUFFIX,\1/' > apple.list
       
-      - name: Generate tld-not-cn.list file
+      - name: Generate tld-not-cn.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/tld-!cn.txt | sed 's/^[^:]*:/./' > tld-not-cn.list
       
-      - name: Generate private.list file
+      - name: Generate private.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/private.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > private.list
       
-      - name: Generate reject.list file
+      - name: Generate reject.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > reject.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt | sed 's/^/DOMAIN-SUFFIX,/' > reject.list
       
-      - name: Generate proxy.list file
+      - name: Generate proxyt.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > proxy.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt | sed 's/^/DOMAIN-SUFFIX,/' > proxy.list
       
-      - name: Generate direct.list file
+      - name: Generate direct.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > direct.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt | 's/^/DOMAIN-SUFFIX,/' > direct.list
       
-      - name: Generate gfw.list file
+      - name: Generate gfw.txt file
         run: |
-          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/gfw.txt | sed 's/^[^:]*:/DOMAIN-SUFFIX,/' > gfw.list
+          curl -sSL https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/gfw.txt | sed 's/^/DOMAIN-SUFFIX,/' > gfw.list
       
-      - name: Generate cncidr.list file
+      - name: Generate cncidr.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/cn.txt | sed 's/^/IP-CIDR,/' > cncidr.list
       
-      - name: Generate lancidr.list file
+      - name: Generate lancidr.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/private.txt | sed 's/^/IP-CIDR,/' > lancidr.list
       
-      - name: Generate telegramcidr.list file
+      - name: Generate telegramcidr.txt file
         run: |
           curl -sSL https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt | sed 's/^/IP-CIDR,/' > telegramcidr.list
       
