@@ -90,7 +90,7 @@ jobs:
       - name: Modify rule list files
         run: |
           sed -i 's/$/,PROXY/' ./rules/TikTok.list
-          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' '$a\' ./rules/TikTok.list
           cp ./rules/TikTok.list ./rules.d
 
           sed -i 's/$/,DIRECT/' ./rules/icloud.list
@@ -110,7 +110,7 @@ jobs:
           cp ./rules/reject.list ./rules.d
 
           sed -i 's/$/,PROXY/' ./rules/proxy.list
-          sed -i '1i# # 代理域名' ./rules/proxy.list
+          sed -i '1i# 代理域名' ./rules/proxy.list
           cp ./rules/proxy.list ./rules.d
 
           sed -i 's/$/,DIRECT/' ./rules/direct.list
@@ -179,7 +179,7 @@ jobs:
       - name: Modify rule list files
         run: |
           sed -i 's/$/,PROXY/' ./rules/TikTok.list
-          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' '$a\' ./rules/TikTok.list
           cp ./rules/TikTok.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/tld-not-cn.list
@@ -195,7 +195,7 @@ jobs:
           cp ./rules/reject.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/proxy.list
-          sed -i '1i# # 代理域名' ./rules/proxy.list
+          sed -i '1i# 代理域名' ./rules/proxy.list
           cp ./rules/proxy.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/gfw.list
