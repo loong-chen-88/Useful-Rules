@@ -90,7 +90,8 @@ jobs:
       - name: Modify rule list files
         run: |
           sed -i 's/$/,PROXY/' ./rules/TikTok.list
-          sed -i '1i# 解锁 TikTok' '$a\' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
+          sed -i '$a\' ./rules/TikTok.list
           cp ./rules/TikTok.list ./rules.d
 
           sed -i 's/$/,DIRECT/' ./rules/icloud.list
@@ -179,7 +180,8 @@ jobs:
       - name: Modify rule list files
         run: |
           sed -i 's/$/,PROXY/' ./rules/TikTok.list
-          sed -i '1i# 解锁 TikTok' '$a\' ./rules/TikTok.list
+          sed -i '1i# 解锁 TikTok' ./rules/TikTok.list
+          sed -i '$a\' ./rules/TikTok.list
           cp ./rules/TikTok.list ./rules.d/
 
           sed -i 's/$/,PROXY/' ./rules/tld-not-cn.list
