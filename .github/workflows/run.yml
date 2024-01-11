@@ -161,7 +161,7 @@ jobs:
       - name: Concatenate All configuration file
         run: |
           cat ./conf.d/*.txt > ./conf.d/WhitelistMode.conf
-          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/WhitelistMode.conf
+          sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/WhitelistMode.conf
 
       - name: Upload whitelist mode artifact
         uses: actions/upload-artifact@v3
@@ -248,7 +248,7 @@ jobs:
       - name: Concatenate All configuration file
         run: |
           cat ./conf.d/*.txt > ./conf.d/BlacklistMode.conf
-          sed -i "1s/^/# Built on $(date)\n/" ./conf.d/BlacklistMode.conf
+          sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/BlacklistMode.conf
 
       - name: Upload backlist mode artifact
         uses: actions/upload-artifact@v3
