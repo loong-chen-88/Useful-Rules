@@ -80,7 +80,7 @@ jobs:
           mkdir -p {rules,rules.d,conf.d}
           
       - name: Get common configuration files
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           ref: 'Custom'
