@@ -76,10 +76,15 @@ jobs:
     needs: build_rules_list
     steps:
       - name: Get common configuration files
-        run: |
-          mkdir -p {rules,rules.d,conf.d}
-          curl -LO https://raw.githubusercontent.com/L00N9CHEN/Useful-Rules/Custom/General.txt
-          cp General.txt ./conf.d
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: 'Custom'
+          token: ${{ secrets.ACCESS_TOKEN }}
+          sparse-checkout: |
+            General.txt
+          sparse-checkout-cone-mode: false
+          path: ./conf.d
 
       - name: Download rule list artifact
         uses: actions/download-artifact@v3
