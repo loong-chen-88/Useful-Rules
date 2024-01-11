@@ -88,7 +88,7 @@ jobs:
           sparse-checkout: |
             General.txt
           sparse-checkout-cone-mode: false
-          path: ./conf.d
+          path: conf.d
 
       - name: Download rule list artifact
         uses: actions/download-artifact@v3
