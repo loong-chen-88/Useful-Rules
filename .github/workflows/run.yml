@@ -211,7 +211,7 @@ jobs:
       - name: Concatenate rule configuration files
         run: |
           cat ./rules.d/*.list > ./conf.d/rules.txt
-          echo -e "GEOIP,CN,DIRECT\nFINAL,DIRECT" >> ./conf.d/rules.txt
+          echo -e "GEOIP,CN,DIRECT,no-resolve\nFINAL,DIRECT" >> ./conf.d/rules.txt
           sed -i '1s/^/[RULE]\n/' ./conf.d/rules.txt
 
       - name: Generate URL rewrite configuration file
