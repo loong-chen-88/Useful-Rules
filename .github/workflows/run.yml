@@ -75,6 +75,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_rules_list
     steps:
+      - name: Creating Folders
+        run: |
+          mkdir -p {rules,rules.d,conf.d}
+          
       - name: Get common configuration files
       - uses: actions/checkout@v4
         with:
