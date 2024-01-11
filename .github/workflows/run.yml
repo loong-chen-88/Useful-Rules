@@ -118,15 +118,15 @@ jobs:
           sed -i '1i# 直连域名列表' ./rules/direct.list
           cp ./rules/direct.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules/cncidr.list
+          sed -i 's/$/,DIRECT,no-resolve/' ./rules/cncidr.list
           sed -i '1i# 中国大陆 IP 地址' ./rules/cncidr.list
           cp ./rules/cncidr.list ./rules.d
 
-          sed -i 's/$/,DIRECT/' ./rules/lancidr.list
+          sed -i 's/$/,DIRECT,no-resolve/' ./rules/lancidr.list
           sed -i '1i# 局域网及预留 IP 地址' ./rules/lancidr.list
           cp ./rules/lancidr.list ./rules.d
 
-          sed -i 's/$/,PROXY/' ./rules/telegramcidr.list
+          sed -i 's/$/,PROXY,no-resolve/' ./rules/telegramcidr.list
           sed -i '1i# Telegram 使用的 IP 地址' ./rules/telegramcidr.list
           cp ./rules/telegramcidr.list ./rules.d
 
@@ -204,7 +204,7 @@ jobs:
           sed -i '1i# GFWList 域名' ./rules/gfw.list
           cp ./rules/gfw.list ./rules.d/
 
-          sed -i 's/$/,PROXY/' ./rules/telegramcidr.list
+          sed -i 's/$/,PROXY,no-resolve/' ./rules/telegramcidr.list
           sed -i '1i# Telegram 使用的 IP 地址' ./rules/telegramcidr.list
           cp ./rules/telegramcidr.list ./rules.d/
 
