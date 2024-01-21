@@ -301,3 +301,10 @@ jobs:
           for file in $(ls); do
             curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
           done
+      - name: Delete older releases
+        uses: dev-drprasad/delete-older-releases@v0.3.2
+        with:
+            keep_latest: 7
+            delete_expired_data: 7
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
