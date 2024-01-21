@@ -295,6 +295,13 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
+          
+      - name: Delete old tags
+        run: |
+          git fetch --prune --tags
+          git tag -l | grep '^2023' | xargs git tag -d
+          git push --delete origin $(git tag -l | grep '^2023')
+          
       - name: Purge jsdelivr CDN
         run: |
           cd rules || exit 1
