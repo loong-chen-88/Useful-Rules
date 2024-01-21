@@ -296,11 +296,15 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
           
+      - name: Debugging - List tags
+        run: git tag -l
+
       - name: Delete old tags
         run: |
           git fetch --prune --tags
-          git tag -l | grep '^2023' | xargs git tag -d
-          git push --delete origin $(git tag -l | grep '^2023')
+          git tag -l | grep '^2023' || echo "No tags matched the pattern"
+          git tag -l | grep '^2023' | xargs git tag -d || echo "Error deleting tags locally"
+          git push --delete origin $(git tag -l | grep '^2023') || echo "Error deleting tags remotely"
           
       - name: Purge jsdelivr CDN
         run: |
