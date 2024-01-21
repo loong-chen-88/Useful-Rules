@@ -302,14 +302,16 @@ jobs:
             curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
           done
 
-  Delete_Old_Releases:
+  Delete_Old_Tag_And_Releases:
     runs-on: ubuntu-latest
     needs: publish
     steps:
       - name: Delete older releases
         uses: dev-drprasad/delete-older-releases@v0.3.2
         with:
-          keep_latest: 7
-          delete_expired_data: 7
+          keep_latest: 6
+          delete_expired_data: 6
+          delete_tags: true
+          delete_tag_pattern: 2023*
         env:
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
