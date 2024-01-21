@@ -295,7 +295,7 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
-          git push --delete origin $( git ls-remote --tags origin | awk '{print $2}' | grep -vE "$(echo -e ${TAG_NAME})")
+          # git push --delete origin $( git ls-remote --tags origin | awk '{print $2}' | grep -vE "$(echo -e ${TAG_NAME})")
           
       - name: Purge jsdelivr CDN
         run: |
