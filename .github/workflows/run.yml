@@ -312,6 +312,6 @@ jobs:
           keep_latest: 6
           delete_expired_data: 6
           delete_tags: true
-          delete_tag_pattern: 2023*
+          delete_tag_pattern: ^2023\d+
         env:
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
