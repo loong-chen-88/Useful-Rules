@@ -1,5 +1,5 @@
 [General]
-always-real-ip= *.apple.com
+always-real-ip= *.apple.com,*.icloud.com
 bypass-system = true
 ipv6 = true
 prefer-ipv6 = false
