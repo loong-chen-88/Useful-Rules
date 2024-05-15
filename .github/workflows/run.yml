@@ -323,7 +323,7 @@ jobs:
           with:
             name: rules
 
-        - name: Delete older releases
+        - name: Delete old tags and releases
           uses: dev-drprasad/delete-older-releases@v0.3.3
           with:
             keep_latest: 7
@@ -338,6 +338,7 @@ jobs:
             repository: ${{ github.repository }}
             retain_days: 30
             keep_minimum_runs: 6
-            delete_run_by_conclusion_pattern: failure
+            delete_workflow_by_state_pattern: ALL
+            delete_run_by_conclusion_pattern: ALL
           
     
