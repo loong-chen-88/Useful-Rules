@@ -65,17 +65,17 @@ jobs:
           mkdir -p rules.d
           cp *.list ./rules.d/
 
-      - name: Configure artifact name
-        run: |
-          echo "ARTIFACT_NAME=Built on $(TZ="Asia/Shanghai" date +%Y%m%d)" >> $GITHUB_ENV
+      # - name: Configure artifact name
+      #   run: |
+      #     echo "ARTIFACT_NAME=Built on $(TZ="Asia/Shanghai" date +%Y%m%d)" >> $GITHUB_ENV
 
       - name: Upload rule list artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT_NAME }}-rules
           path: ./rules.d/
-          retention-days: 1
-          if-no-files-found: error
+          # retention-days: 1
+          # if-no-files-found: error
 
   build_whitelist_mode_conf_file:
     runs-on: ubuntu-latest
@@ -170,12 +170,12 @@ jobs:
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/WhitelistMode.conf
 
       - name: Upload whitelist mode artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: rules
           path: ./conf.d/WhitelistMode.conf
-          retention-days: 1
-          if-no-files-found: error
+          # retention-days: 1
+          # if-no-files-found: error
    
 
   build_blacklist_mode_conf_file:
@@ -259,12 +259,12 @@ jobs:
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/BlacklistMode.conf
 
       - name: Upload backlist mode artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: rules
           path: ./conf.d/BlacklistMode.conf
-          retention-days: 1
-          if-no-files-found: error
+          # retention-days: 1
+          # if-no-files-found: error
 
   publish:
     runs-on: ubuntu-latest
