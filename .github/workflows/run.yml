@@ -66,10 +66,12 @@ jobs:
           cp *.list ./rules.d/
 
       - name: Upload rule list artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./rules.d/
+          retention-days: 1
+          if-no-files-found: error
 
   build_whitelist_mode_conf_file:
     runs-on: ubuntu-latest
@@ -91,7 +93,7 @@ jobs:
           path: conf.d
 
       - name: Download rule list artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rules
           path: ./rules
@@ -164,10 +166,12 @@ jobs:
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/WhitelistMode.conf
 
       - name: Upload whitelist mode artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./conf.d/WhitelistMode.conf
+          retention-days: 1
+          if-no-files-found: error
    
 
   build_blacklist_mode_conf_file:
@@ -190,7 +194,7 @@ jobs:
           path: conf.d
 
       - name: Download rule list artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rules
           path: ./rules
@@ -251,10 +255,12 @@ jobs:
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/BlacklistMode.conf
 
       - name: Upload backlist mode artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./conf.d/BlacklistMode.conf
+          retention-days: 1
+          if-no-files-found: error
 
   publish:
     runs-on: ubuntu-latest
@@ -267,13 +273,13 @@ jobs:
           mkdir -p rules
 
       - name: Download artifact 
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rules
           path: ./rules
 
       - name: Publish and upload artifacts
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.TAG_NAME }}
@@ -309,7 +315,7 @@ jobs:
     needs: publish
     steps:
       - name: Delete older releases
-        uses: dev-drprasad/delete-older-releases@v0.3.2
+        uses: dev-drprasad/delete-older-releases@v0.3.3
         with:
           keep_latest: 7
           delete_tags: true
