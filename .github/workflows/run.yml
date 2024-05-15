@@ -65,10 +65,14 @@ jobs:
           mkdir -p rules.d
           cp *.list ./rules.d/
 
+      - name: Configure artifact name
+        run: |
+          echo "ARTIFACT_NAME=Built on $(TZ="Asia/Shanghai" date +%Y%m%d)" >> $GITHUB_ENV
+
       - name: Upload rule list artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rules
+          name: ${{ env.ARTIFACT_NAME }}-rules
           path: ./rules.d/
           retention-days: 1
           if-no-files-found: error
