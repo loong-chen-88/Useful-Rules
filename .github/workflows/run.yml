@@ -142,7 +142,7 @@ jobs:
           cp *.list ./rules.d/
 
       - name: Upload rule list artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./rules.d/
@@ -168,7 +168,7 @@ jobs:
 
       - name: Concatenate rule configuration files
         run: |
-          echo "" >> General.txt
+          echo "" >> ./conf.d/General.txt
           cat <<EOF >> ./conf.d/General.txt
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_tiktok.list,PROXY
@@ -220,7 +220,7 @@ jobs:
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/Shadowrocket.conf
 
       - name: Upload whitelist mode artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./conf.d/Shadowrocket.conf
@@ -238,7 +238,7 @@ jobs:
           mkdir -p rules
 
       - name: Download artifact 
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rules
           path: ./rules
@@ -280,7 +280,7 @@ jobs:
     needs: publish
     steps:
         - name: Delete old artifacts
-          uses: geekyeggo/delete-artifact@v2
+          uses: geekyeggo/delete-artifact@v5
           with:
             name: rules
 
