@@ -216,14 +216,13 @@ jobs:
 
       - name: Concatenate All configuration file
         run: |
-          timestamp=$(TZ='Asia/Shanghai' date +'%Y%m%d%H%M%S')
-          cat ./conf.d/*.txt > "./conf.d/Shadowrocket_$timestamp.conf"
-
+          cat ./conf.d/*.txt > ./conf.d/Shadowrocket.conf
+          sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/Shadowrocket.conf
 
       - name: Upload whitelist mode artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rules
+          name: configuration
           path: ./conf.d/*.conf
 
 
