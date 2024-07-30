@@ -171,33 +171,33 @@ jobs:
           echo "" >> ./conf.d/General.txt
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_category-ads-all.list,REJECT
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_tiktok.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_netflix.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_youtube.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_google.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_whatsapp.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_instagram.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_facebook.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_twitter.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_telegram.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_gfw.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_steam@cn.list,DIRECT
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_icloud@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_apple-cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_bing@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_microsoft@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_category-bank-cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_private.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_cn.list,DIREC.list
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-ads-all.list,REJECT
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_tiktok.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_netflix.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_youtube.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_google.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_whatsapp.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_instagram.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_facebook.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_twitter.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_telegram.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_gfw.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_steam@cn.list,DIRECT
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_icloud@cn.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_apple-cn.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_bing@cn.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_microsoft@cn.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-bank-cn.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIREC
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_cn.list,DIREC.list
           
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_twitter.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_google.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_netflix.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_telegram.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_facebook.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_private.list,DIRECT,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geoip_cn.list,DIRECT,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_twitter.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_google.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_netflix.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_telegram.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_facebook.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_private.list,DIRECT,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_cn.list,DIRECT,no-resolve
           FINAL,PROXY
           
           EOF
