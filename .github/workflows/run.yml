@@ -170,6 +170,7 @@ jobs:
         run: |
           echo "" >> ./conf.d/General.txt
           cat <<EOF >> ./conf.d/General.txt
+          [Rule]
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_tiktok.list,PROXY
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/geosite_netflix.list,PROXY
