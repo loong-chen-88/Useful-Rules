@@ -77,7 +77,6 @@ jobs:
 
       - name: Concatenate rule configuration files
         run: |
-          echo "" >> ./conf.d/General.txt
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-ads-all.list,REJECT
