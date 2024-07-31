@@ -17,85 +17,10 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_category-ads-all.list
           
-      - name: Generate geosite_tiktok.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_tiktok.list
-
-      - name: Generate geosite_netflix.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_netflix.list
-
-      - name: Generate geosite_youtube.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_youtube.list
-
-      - name: Generate geosite_google.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_google.list
-
-      - name: Generate geosite_whatsapp.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/whatsapp.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_whatsapp.list
-
-      - name: Generate geosite_instagram.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_instagram.list
-
-      - name: Generate geosite_facebook.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_facebook.list
-
-      - name: Generate geosite_twitter.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_twitter.list
-
-      - name: Generate geosite_telegram.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_telegram.list
-
       - name: Generate geosite_gfw.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_gfw.list
-          
-      - name: Generate geosite_steam@cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_steam@cn.list
-
-      - name: Generate geosite_icloud@cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/icloud@cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_icloud@cn.list
-          
-      - name: Generate geosite_apple-cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_apple-cn.list
-
-      - name: Generate geosite_bing@cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing@cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_bing@cn.list
-
-      - name: Generate geosite_microsoft@cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft@cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_microsoft@cn.list
-          
-      - name: Generate geosite_category-bank-cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-bank-cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_category-bank-cn.list
 
       - name: Generate geosite_private.list file
         run: |
@@ -107,22 +32,6 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_cn.list
 
-
-      - name: Generate geoip_twitter.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.list | sed 's/^/IP-CIDR,/' > geoip_twitter.list
-
-      - name: Generate geoip_google.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.list | sed 's/^/IP-CIDR,/' > geoip_google.list
-
-      - name: Generate geoip_netflix.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.list | sed 's/^/IP-CIDR,/' > geoip_netflix.list
-
-      - name: Generate geoip_facebook.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/facebook.list | sed 's/^/IP-CIDR,/' > geoip_facebook.list
 
       - name: Generate geoip_telegram.list file
         run: |
@@ -172,30 +81,11 @@ jobs:
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-ads-all.list,REJECT
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_tiktok.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_netflix.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_youtube.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_google.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_whatsapp.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_instagram.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_facebook.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_twitter.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_telegram.list,PROXY
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_gfw.list,PROXY
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_steam@cn.list,DIRECT
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_icloud@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_apple-cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_bing@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_microsoft@cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-bank-cn.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIREC
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_cn.list,DIREC.list
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIRECT
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_cn.list,DIRECT
           
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_twitter.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_google.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_netflix.list,PROXY,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_telegram.list,PROXY,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_facebook.list,PROXY,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_private.list,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_cn.list,DIRECT,no-resolve
           FINAL,PROXY
@@ -220,11 +110,12 @@ jobs:
           cat ./conf.d/*.txt > ./conf.d/Shadowrocket.conf
           sed -i "1s/^/# Built on $(TZ="Asia/Shanghai" date)\n/" ./conf.d/Shadowrocket.conf
 
-      - name: Upload whitelist mode artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: configuration
+          name: conf
           path: ./conf.d/Shadowrocket.conf
+          retention-days: 5
 
   publish:
     runs-on: ubuntu-latest
