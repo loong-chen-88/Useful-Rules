@@ -29,7 +29,7 @@ tun-excluded-routes = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16
 # TUN包含路由。默认情况下，Shadowrocket接口会声明自己为默认路由，但由于Wi-Fi接口的路由较小，有些流量可能不会通过Shadowrocket接口。使用此选项可以添加一个较小的路由表。
 tun-included-routes = 
 # 总是使用真实IP,这个选项要求 Shadowrocket 在TUN处理DNS请求返回一个真实的IP地址而不是假的IP地址
-always-real-ip=+.lan,+.local,+.localhost,+.stun.*.*,+.stun.*.*.*,+.stun.*.*.*.*,+.stun.*.*.*.*.*,time.*.com,ntp.*.com,'*.msftncsi.com','*.msftconnecttest.com','*.cloudflareclient.com',localhost.sec.qq.com,localhost.ptlogin2.qq.com,localhost.work.weixin.qq.com,WORKGROUP
+always-real-ip=time.*.com,ntp.*.com,*.cloudflareclient.com,localhost.sec.qq.com,localhost.ptlogin2.qq.com,localhost.work.weixin.qq.com
 
 # ping数据包自动回复。
 icmp-auto-reply = true
