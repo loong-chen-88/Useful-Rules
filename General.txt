@@ -41,6 +41,8 @@ udp-policy-not-supported-behaviour = REJECT
 include =
 # 配置文件更新URL
 update-url = https://cdn.jsdelivr.net/gh/loong-chen-88/Useful-Rules@release/conf/Shadowrocket.conf
+[Proxy Group]
+AUTO = url-test,interval=600,timeout=5,url=https://cp.cloudflare.com/generate_204,policy-regex-filter=*
 
 
 
