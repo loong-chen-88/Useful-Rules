@@ -80,14 +80,14 @@ jobs:
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-ads-all.list,REJECT
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_gfw.list,PROXY
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_gfw.list,AUTO
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIRECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_cn.list,DIRECT
           
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_telegram.list,PROXY,no-resolve
+          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_telegram.list,AUTO,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_private.list,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_cn.list,DIRECT,no-resolve
-          FINAL,PROXY
+          FINAL,AUTO
           
           EOF
 
