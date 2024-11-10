@@ -40,7 +40,7 @@ udp-policy-not-supported-behaviour = REJECT
 # 包含配置。如“include=a.conf”表示当前配置包含另一个配置a.conf的内容，当前配置的优先级高于a.conf。该选项是对配置建立包含关系，以满足同时使用多个配置的需求。
 include =
 # 配置文件更新URL
-update-url = https://cdn.jsdelivr.net/gh/loong-chen-88/Useful-Rules@release/conf/Shadowrocket.conf
+update-url = https://git.tfu.us.kg/https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/conf/Shadowrocket.conf
 [Proxy Group]
 AUTO = url-test,interval=600,timeout=5,url=https://cp.cloudflare.com/generate_204,policy-regex-filter=*
 
