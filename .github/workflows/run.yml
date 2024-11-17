@@ -3,68 +3,62 @@ name: Generate shadowrocket rules
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '59 23 * * SUN'
   push:
     branches:
       - main
 
 jobs:
-  build_rules_list:
+  Building_The_Rules_List_File:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate geosite_geolocation-!cn.list file
+        run: |
+          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-!cn.list \
+          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_geolocation-!cn.list
       - name: Generate geosite_category-ads-all.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_category-ads-all.list
-          
+          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_category-ads-all.list  
       - name: Generate geosite_gfw.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_gfw.list
-
       - name: Generate geosite_private.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_private.list
-
       - name: Generate geosite_cn.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_cn.list
-
-
       - name: Generate geoip_telegram.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.list | sed 's/^/IP-CIDR,/' > geoip_telegram.list
-
       - name: Generate geoip_private.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list | sed 's/^/IP-CIDR,/' > geoip_private.list
-
       - name: Generate geoip_cn.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.list | sed 's/^/IP-CIDR,/' > geoip_cn.list         
-
       - name: Move files to rules directory
         run: |
           mkdir -p rules.d
           cp *.list ./rules.d/
-
       - name: Upload rule list artifact
         uses: actions/upload-artifact@v4
         with:
           name: rules
           path: ./rules.d/
-
-  build_Shadowrocket_conf_file:
+          
+  Building_Shadowrocket_Configuration_Files:
     runs-on: ubuntu-latest
-    needs: build_rules_list
     steps:
       - name: Creating Folders
         run: |
           mkdir -p conf.d
           
-      - name: Get common configuration files
+      - name: Getting the generic configuration file
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
@@ -75,17 +69,35 @@ jobs:
           sparse-checkout-cone-mode: false
           path: conf.d
 
-      - name: Concatenate rule configuration files
+      - name: Generate skip proxy entries Generate Always Use Real IP Entries
+        run: |
+          sed -i "/^skip-proxy =/c\skip-proxy = $(curl -sSL \
+          https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/private.list | \
+          paste -sd,),$(curl -sSL \
+          https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/private.list | \
+          sed 's/+/\*/g' | paste -sd,)" ./conf.d/General.txt
+
+      - name: Generate Always Use Real IP Entries
+        run: |
+          sed -i "/^always-real-ip =/c\always-real-ip = $(curl -sSL \
+          https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-cn.list | \
+          sed 's/+/\*/g' | paste -sd,)" ./conf.d/General.txt
+
+      - name: Generation of rules section
         run: |
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
+          DOMAIN,8.8.8.8.in-addr.arpa,AUTO
+          DOMAIN,5.5.5.223.in-addr.arpa,DIRECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_gfw.list,AUTO
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIRECT
+          # RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_private.list,DIRECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_cn.list,DIRECT
-          
+          AND,((RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geosite_geolocation-!cn.list),(RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_cn.list,)),DIRECT
+          IP-CIDR,8.8.8.8/32,AUTO,no-resolve
+          IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_telegram.list,AUTO,no-resolve
-          RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_private.list,DIRECT,no-resolve
+          # RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_private.list,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/release/rules/geoip_cn.list,DIRECT,no-resolve
           FINAL,AUTO
           
@@ -118,7 +130,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [build_rules_list,build_Shadowrocket_conf_file]
+    needs: [Building_The_Rules_List_File,Building_Shadowrocket_Configuration_Files]
     steps:     
       - name: Configure variable names
         run: |
