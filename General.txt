@@ -29,7 +29,7 @@ skip-proxy =
 # TUN包含路由。默认情况下，Shadowrocket接口会声明自己为默认路由，但由于Wi-Fi接口的路由较小，有些流量可能不会通过Shadowrocket接口。使用此选项可以添加一个较小的路由表。
 tun-included-routes = 
 # 总是使用真实IP,这个选项要求 Shadowrocket 在TUN处理DNS请求返回一个真实的IP地址而不是假的IP地址
-always-real-ip=
+always-real-ip =
 
 # ping数据包自动回复。
 icmp-auto-reply = true
