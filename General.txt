@@ -16,20 +16,20 @@ dns-fallback-system = false
 # 直连域名解析失败后使用代理。false表示不启用。
 dns-direct-fallback-proxy = true
 # DNS覆写。使用普通DNS或加密DNS（如doh、doq、dot等）覆盖默认的系统DNS。有些dns over https支持http3，所以尝试查询，如果支持就切换到http3。可在doh链接后面加上#no-h3关闭。
-dns-server = https://223.5.5.5/dns-query,https://1.12.12.12/dns-query
+dns-server = h3://8.8.8.8/dns-query
 # 备用DNS。当覆写的DNS解析失败后回退备用DNS，如需指定多个DNS，可用逗号分隔。system表示回退到系统DNS。
-fallback-dns-server = https://8.8.8.8/dns-query,https://1.1.1.1/dns-query
+fallback-dns-server = h3://223.5.5.5/dns-query,223.5.5.5
 # 劫持DNS，有些设备或软件总是使用硬编码的DNS服务器，例如Netflix通过Google DNS(8.8.8.8或8.8.4.4)发送请求，您可以使用此选项来劫持查询
 hijack-dns = :53
 
 # 跳过代理。此选项强制这些域名或IP的连接范围由Shadowrocket TUN接口来处理，而不是Shadowrocket代理服务器。此选项用于解决一些应用程序的一些兼容性问题。
-skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.local,captive.apple.com
+skip-proxy = 
 # TUN旁路路由。Shadowrocket TUN接口只能处理TCP协议。使用此选项可以绕过指定的IP范围，让其他协议通过。
-tun-excluded-routes = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32,239.255.255.250/32
+#tun-excluded-routes =
 # TUN包含路由。默认情况下，Shadowrocket接口会声明自己为默认路由，但由于Wi-Fi接口的路由较小，有些流量可能不会通过Shadowrocket接口。使用此选项可以添加一个较小的路由表。
 tun-included-routes = 
 # 总是使用真实IP,这个选项要求 Shadowrocket 在TUN处理DNS请求返回一个真实的IP地址而不是假的IP地址
-always-real-ip=time.*.com,ntp.*.com,*.cloudflareclient.com,localhost.sec.qq.com,localhost.ptlogin2.qq.com,localhost.work.weixin.qq.com
+always-real-ip=
 
 # ping数据包自动回复。
 icmp-auto-reply = true
@@ -40,7 +40,7 @@ udp-policy-not-supported-behaviour = REJECT
 # 包含配置。如“include=a.conf”表示当前配置包含另一个配置a.conf的内容，当前配置的优先级高于a.conf。该选项是对配置建立包含关系，以满足同时使用多个配置的需求。
 include =
 # 配置文件更新URL
-update-url = https://git.tfu.us.kg/https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/conf/Shadowrocket.conf
+update-url = https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/conf/Shadowrocket.conf
 [Proxy Group]
 AUTO = url-test,interval=600,timeout=5,url=https://cp.cloudflare.com/generate_204,policy-regex-filter=*
 
