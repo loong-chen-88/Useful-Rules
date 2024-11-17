@@ -53,6 +53,7 @@ jobs:
           
   Building_Shadowrocket_Configuration_Files:
     runs-on: ubuntu-latest
+    needs: Building_The_Rules_List_File
     steps:
       - name: Creating Folders
         run: |
