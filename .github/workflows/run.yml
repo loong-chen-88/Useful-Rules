@@ -92,7 +92,7 @@ jobs:
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_gfw.list,AUTO
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_cn.list,DIRECT
-          AND,((RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_geolocation-!cn.list),(RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_cn.list,)),DIRECT
+          AND,((RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_geolocation-!cn.list),(RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_cn.list)),DIRECT
           IP-CIDR,8.8.8.8/32,AUTO,no-resolve
           IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_telegram.list,AUTO,no-resolve
