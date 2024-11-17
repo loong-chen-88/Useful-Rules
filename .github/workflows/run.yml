@@ -88,13 +88,17 @@ jobs:
           cat <<EOF >> ./conf.d/General.txt
           [Rule]
           DOMAIN,8.8.8.8.in-addr.arpa,AUTO
+          DOMAIN,4.4.8.8.in-addr.arpa,AUTO
           DOMAIN,5.5.5.223.in-addr.arpa,DIRECT
+          DOMAIN,6.6.6.223.in-addr.arpa,DIRECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_gfw.list,AUTO
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_cn.list,DIRECT
           AND,((RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_geolocation-!cn.list),(RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_cn.list)),DIRECT
           IP-CIDR,8.8.8.8/32,AUTO,no-resolve
+          IP-CIDR,8.8.4.4/32,AUTO,no-resolve
           IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
+          IP-CIDR,223.6.6.6/32,DIRECT,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_telegram.list,AUTO,no-resolve
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_cn.list,DIRECT,no-resolve
           FINAL,AUTO
