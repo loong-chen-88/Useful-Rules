@@ -16,35 +16,44 @@ jobs:
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-!cn.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_geolocation-!cn.list
+          
       - name: Generate geosite_category-ads-all.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_category-ads-all.list  
+          
       - name: Generate geosite_gfw.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_gfw.list
-      - name: Generate geosite_private.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_private.list
+          
+      # - name: Generate geosite_private.list file
+      #   run: |
+      #     curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list \
+      #     | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_private.list
+      
       - name: Generate geosite_cn.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list \
           | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_cn.list
+          
       - name: Generate geoip_telegram.list file
         run: |
           curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.list | sed 's/^/IP-CIDR,/' > geoip_telegram.list
-      - name: Generate geoip_private.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list | sed 's/^/IP-CIDR,/' > geoip_private.list
+          
+      # - name: Generate geoip_private.list file
+      #   run: |
+      #     curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list | sed 's/^/IP-CIDR,/' > geoip_private.list
+      
       - name: Generate geoip_cn.list file
         run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.list | sed 's/^/IP-CIDR,/' > geoip_cn.list         
+          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.list | sed 's/^/IP-CIDR,/' > geoip_cn.list   
+          
       - name: Move files to rules directory
         run: |
           mkdir -p rules.d
           cp *.list ./rules.d/
+          
       - name: Upload rule list artifact
         uses: actions/upload-artifact@v4
         with:
@@ -77,7 +86,13 @@ jobs:
           paste -sd,),$(curl -sSL \
           https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/private.list | \
           sed 's/+/\*/g' | paste -sd,)" ./conf.d/General.txt
-
+          
+      # - name: Generate Tun Excluded Routes Entries
+      #   run: |
+      #     sed -i "/^tun-excluded-routes =/c\tun-excluded-routes = $(curl -sSL \
+      #     https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/private.list | \
+      #     paste -sd,)" ./conf.d/General.txt
+      
       - name: Generate Always Use Real IP Entries
         run: |
           sed -i "/^always-real-ip =/c\always-real-ip = $(curl -sSL \
