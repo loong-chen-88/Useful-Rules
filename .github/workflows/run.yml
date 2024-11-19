@@ -12,10 +12,10 @@ jobs:
   Building_The_Rules_List_File:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate geosite_geolocation-!cn.list file
-        run: |
-          curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-!cn.list \
-          | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_geolocation-!cn.list
+      # - name: Generate geosite_geolocation-!cn.list file
+      #   run: |
+      #     curl -sSL https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/geolocation-!cn.list \
+      #     | sed -E 's/^\+\./DOMAIN-SUFFIX,/; s/^[^D]/DOMAIN-SUFFIX,&/' > geosite_geolocation-!cn.list
           
       - name: Generate geosite_category-ads-all.list file
         run: |
@@ -110,7 +110,6 @@ jobs:
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_category-ads-all.list,REJECT
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_gfw.list,AUTO
           RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_cn.list,DIRECT
-          AND,((RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geosite_geolocation-!cn.list),(RULE-SET,https://raw.githubusercontent.com/loong-chen-88/Useful-Rules/refs/heads/release/rules/geoip_cn.list)),DIRECT
           IP-CIDR,8.8.8.8/32,AUTO,no-resolve
           IP-CIDR,8.8.4.4/32,AUTO,no-resolve
           IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
