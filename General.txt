@@ -16,9 +16,9 @@ dns-fallback-system = false
 # 直连域名解析失败后使用代理。false表示不启用。
 dns-direct-fallback-proxy = true
 # DNS覆写。使用普通DNS或加密DNS（如doh、doq、dot等）覆盖默认的系统DNS。有些dns over https支持http3，所以尝试查询，如果支持就切换到http3。可在doh链接后面加上#no-h3关闭。
-dns-server = h3://8.8.8.8/dns-query,https://8.8.4.4/dns-query
+dns-server = h3://223.5.5.5/dns-query,https://223.6.6.6/dns-query
 # 备用DNS。当覆写的DNS解析失败后回退备用DNS，如需指定多个DNS，可用逗号分隔。system表示回退到系统DNS。
-fallback-dns-server = h3://223.5.5.5/dns-query,https://223.6.6.6/dns-query
+fallback-dns-server = h3://8.8.8.8/dns-query,https://8.8.4.4/dns-query
 # 劫持DNS，有些设备或软件总是使用硬编码的DNS服务器，例如Netflix通过Google DNS(8.8.8.8或8.8.4.4)发送请求，您可以使用此选项来劫持查询
 hijack-dns = :53
 
